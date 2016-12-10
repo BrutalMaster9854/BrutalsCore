@@ -1,4 +1,4 @@
-package ml.brutalmaster9854.core.stats;
+package tk.brutalmaster9854.core.stats;
 
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
