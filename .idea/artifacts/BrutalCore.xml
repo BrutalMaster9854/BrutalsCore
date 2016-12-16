@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="BrutalCore">
+    <output-path>$USER_HOME$/Desktop/BrutalCore.jar</output-path>
+    <root id="archive" name="BrutalCore.jar">
+      <element id="module-output" name="BrutalCore" />
+      <element id="file-copy" path="$PROJECT_DIR$/src/plugin.yml" />
+    </root>
+  </artifact>
+</component>
