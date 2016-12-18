@@ -1,8 +1,6 @@
 package tk.brutalmaster9854.core.database;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
+import java.sql.*;
 
 public class MySQL implements Database {
 
@@ -48,6 +46,20 @@ public class MySQL implements Database {
             connection.prepareStatement(sql);
         } catch(Exception e) {
             e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public ResultSet query(String sql) {
+
+        PreparedStatement statement = createStatement(sql);
+
+        if(statement != null) {
+
+            try {
+                return statement.executeQuery();
+            } catch (SQLException e) {}
         }
         return null;
     }

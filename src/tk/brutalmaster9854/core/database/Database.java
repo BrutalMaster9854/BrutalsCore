@@ -3,14 +3,17 @@ package tk.brutalmaster9854.core.database;
 import java.net.ConnectException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public interface Database {
 
-    abstract Connection getConnection();
+    Connection getConnection();
 
-    abstract void openConnection();
+    void openConnection();
 
-    abstract void closeConnection();
+    void closeConnection();
 
-    abstract PreparedStatement createStatement(String sql);
+    PreparedStatement createStatement(String sql);
+
+    ResultSet query(String sql);
 }

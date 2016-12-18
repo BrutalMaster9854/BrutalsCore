@@ -7,9 +7,11 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import tk.brutalmaster9854.core.bungeecord.ServerConnector;
 import tk.brutalmaster9854.core.entity.MetaDataManager;
+import tk.brutalmaster9854.core.example.Example;
 import tk.brutalmaster9854.core.packet.actionbar.PacketActionbar;
 import tk.brutalmaster9854.core.packet.tablist.PacketTabList;
 import tk.brutalmaster9854.core.packet.title.PacketTitle;
+import tk.brutalmaster9854.core.placeholders.PlaceHolderAPI;
 import tk.brutalmaster9854.core.stats.Metrics;
 import tk.brutalmaster9854.core.updater.Updater;
 
@@ -23,6 +25,7 @@ public class BrutalCore extends JavaPlugin {
     private PacketTitle packetTitle;
     private PacketActionbar packetActionbar;
     private PacketTabList packetTabList;
+    private PlaceHolderAPI placeHolderAPI;
 
     @Override
     public void onEnable() {
@@ -33,15 +36,17 @@ public class BrutalCore extends JavaPlugin {
         packetTitle = new PacketTitle();
         packetActionbar = new PacketActionbar();
         packetTabList = new PacketTabList();
+        placeHolderAPI = new PlaceHolderAPI();
 
-        Metrics metrics = new Metrics(this);
+        registerListeners(this, new Example());
 
         getServer().getScheduler().runTaskAsynchronously(this, new Runnable() {
             @Override
             public void run() {
 
-                Updater updater = new Updater(BrutalCore.get(), "29715");
+                Metrics metrics = new Metrics(BrutalCore.get());
 
+                Updater updater = new Updater(BrutalCore.get(), "29715");
                 Updater.UpdateResults result = updater.checkForUpdates();
 
                 switch(result.getResult()) {
@@ -66,7 +71,6 @@ public class BrutalCore extends JavaPlugin {
     public void onDisable() {
 
     }
-
     public static BrutalCore get() {
         return instance;
     }
@@ -97,5 +101,9 @@ public class BrutalCore extends JavaPlugin {
 
     public PacketTabList getPacketTabList() {
         return packetTabList;
+    }
+
+    public PlaceHolderAPI getPlaceHolderAPI() {
+        return placeHolderAPI;
     }
 }
