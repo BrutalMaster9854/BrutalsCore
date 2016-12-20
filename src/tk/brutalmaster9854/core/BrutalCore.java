@@ -38,8 +38,6 @@ public class BrutalCore extends JavaPlugin {
         packetTabList = new PacketTabList();
         placeHolderAPI = new PlaceHolderAPI();
 
-        System.out.println();
-
         registerListeners(this, new Example());
 
         getServer().getScheduler().runTaskAsynchronously(this, new Runnable() {
