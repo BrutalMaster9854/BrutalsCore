@@ -4,6 +4,8 @@ import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.material.MaterialData;
+import org.bukkit.material.SpawnEgg;
 import tk.brutalmaster9854.core.BrutalCore;
 import tk.brutalmaster9854.core.utils.EnchantmentGlow;
 
@@ -17,12 +19,15 @@ public class ItemBuilder {
     public ItemBuilder(Material material) {
         this.item = new ItemStack(material);
     }
+
     public ItemBuilder(Material material, int amount) {
         this.item = new ItemStack(material, amount);
     }
+
     public ItemBuilder(Material material, int amount, short data) {
         this.item = new ItemStack(material, amount, data);
     }
+
     public ItemBuilder setName(String name) {
 
         ItemMeta im = item.getItemMeta();
@@ -31,6 +36,7 @@ public class ItemBuilder {
 
         return this;
     }
+
     public ItemBuilder addLore(String msg) {
 
         ItemMeta im = item.getItemMeta();
@@ -45,14 +51,17 @@ public class ItemBuilder {
 
         return this;
     }
+
     public ItemBuilder addGlow() {
         item.addEnchantment(new EnchantmentGlow(), 1);
         return this;
     }
+
     public ItemBuilder addEnchant(Enchantment enchantment, int level) {
         item.addEnchantment(enchantment, level);
         return this;
     }
+
     public ItemStack build() {
         return item;
     }

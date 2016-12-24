@@ -8,19 +8,16 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Scanner;
 
-public class Updater
-{
+public class Updater {
 
-    public enum UpdateResult
-    {
+    public enum UpdateResult {
         NO_UPDATE,
         DISABLED,
         FAIL,
         UPDATE_AVAILABLE
     }
 
-    public class UpdateResults
-    {
+    public class UpdateResults {
         private UpdateResult result;
         private String version;
 
@@ -84,6 +81,7 @@ public class Updater
             return new UpdateResults(UpdateResult.DISABLED, null);
 
     }
+
     private int compareVersion(String newVersion) {
         Scanner currentV = new Scanner(currentVersion);
         Scanner newV = new Scanner(newVersion);

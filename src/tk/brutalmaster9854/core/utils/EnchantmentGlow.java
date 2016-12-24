@@ -7,7 +7,7 @@ import org.bukkit.inventory.ItemStack;
 public class EnchantmentGlow extends Enchantment {
 
     public EnchantmentGlow() {
-        super(100);
+        super(165);
     }
     @Override
     public String getName() {
@@ -15,15 +15,15 @@ public class EnchantmentGlow extends Enchantment {
     }
     @Override
     public int getMaxLevel() {
-        return 0;
+        return 1;
     }
     @Override
     public int getStartLevel() {
-        return 0;
+        return 1;
     }
     @Override
     public EnchantmentTarget getItemTarget() {
-        return null;
+        return EnchantmentTarget.ALL;
     }
     @Override
     public boolean isTreasure() {

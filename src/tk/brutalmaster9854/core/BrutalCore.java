@@ -6,12 +6,13 @@ import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import tk.brutalmaster9854.core.bungeecord.ServerConnector;
+import tk.brutalmaster9854.core.commands.BrutalCommand;
+import tk.brutalmaster9854.core.commands.CommandData;
 import tk.brutalmaster9854.core.entity.MetaDataManager;
-import tk.brutalmaster9854.core.example.Example;
+import tk.brutalmaster9854.core.events.callers.ArmorChangeListener;
 import tk.brutalmaster9854.core.packet.actionbar.PacketActionbar;
 import tk.brutalmaster9854.core.packet.tablist.PacketTabList;
 import tk.brutalmaster9854.core.packet.title.PacketTitle;
-import tk.brutalmaster9854.core.placeholders.PlaceHolderAPI;
 import tk.brutalmaster9854.core.stats.Metrics;
 import tk.brutalmaster9854.core.updater.Updater;
 
@@ -25,7 +26,6 @@ public class BrutalCore extends JavaPlugin {
     private PacketTitle packetTitle;
     private PacketActionbar packetActionbar;
     private PacketTabList packetTabList;
-    private PlaceHolderAPI placeHolderAPI;
 
     @Override
     public void onEnable() {
@@ -36,9 +36,8 @@ public class BrutalCore extends JavaPlugin {
         packetTitle = new PacketTitle();
         packetActionbar = new PacketActionbar();
         packetTabList = new PacketTabList();
-        placeHolderAPI = new PlaceHolderAPI();
 
-        registerListeners(this, new Example());
+        registerListeners(this, new ArmorChangeListener());
 
         getServer().getScheduler().runTaskAsynchronously(this, new Runnable() {
             @Override
@@ -65,12 +64,16 @@ public class BrutalCore extends JavaPlugin {
                 }
             }
         });
+
+        getConfig().options().copyDefaults(true);
+        saveConfig();
     }
 
     @Override
     public void onDisable() {
-
+        getLogger().info("BrutalCore is Disabling");
     }
+
     public static BrutalCore get() {
         return instance;
     }
@@ -81,6 +84,14 @@ public class BrutalCore extends JavaPlugin {
 
     public void registerListeners(Plugin plugin, Listener... l) {
         Arrays.stream(l).forEach(listener -> Bukkit.getPluginManager().registerEvents(listener, plugin));
+    }
+
+    public void registerCommand(BrutalCommand executor) {
+
+        CommandData data = executor.getClass().getDeclaredAnnotation(CommandData.class);
+
+        getCommand(data.getName()).setExecutor(executor);
+        if(data.useTabExecutor()) getCommand(data.getName()).setTabCompleter(executor);
     }
 
     public ServerConnector getServerConnector() {
@@ -101,9 +112,5 @@ public class BrutalCore extends JavaPlugin {
 
     public PacketTabList getPacketTabList() {
         return packetTabList;
-    }
-
-    public PlaceHolderAPI getPlaceHolderAPI() {
-        return placeHolderAPI;
     }
 }
