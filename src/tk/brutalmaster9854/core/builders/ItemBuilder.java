@@ -2,10 +2,10 @@ package tk.brutalmaster9854.core.builders;
 
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.material.MaterialData;
-import org.bukkit.material.SpawnEgg;
+import org.bukkit.inventory.meta.SkullMeta;
 import tk.brutalmaster9854.core.BrutalCore;
 import tk.brutalmaster9854.core.utils.EnchantmentGlow;
 
@@ -52,6 +52,23 @@ public class ItemBuilder {
         return this;
     }
 
+    public ItemBuilder addLore(String... msg) {
+
+        ItemMeta im = item.getItemMeta();
+        List<String> lore = im.getLore();
+
+        if (lore == null) {
+            lore = new ArrayList<>();
+        }
+        for(String string : msg) {
+            lore.add(BrutalCore.get().toColor(string));
+        }
+        im.setLore(lore);
+        item.setItemMeta(im);
+
+        return this;
+    }
+
     public ItemBuilder addGlow() {
         item.addEnchantment(new EnchantmentGlow(), 1);
         return this;
@@ -60,6 +77,10 @@ public class ItemBuilder {
     public ItemBuilder addEnchant(Enchantment enchantment, int level) {
         item.addEnchantment(enchantment, level);
         return this;
+    }
+
+    public SkullBuilder toSkullBuilder() {
+        return new SkullBuilder(item);
     }
 
     public ItemStack build() {

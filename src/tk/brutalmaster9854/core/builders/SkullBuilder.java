@@ -1,27 +1,29 @@
 package tk.brutalmaster9854.core.builders;
 
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 
-public class SkullBuilder extends ItemBuilder {
+public class SkullBuilder {
 
-    public SkullBuilder(Material material) {
-        super(material);
+    private ItemStack item;
+
+    public SkullBuilder(ItemStack item) {
+        this.item = item;
     }
-    public SkullBuilder(Material material, int amount) {
-        super(material, amount);
-    }
-    public SkullBuilder(Material material, int amount, short data) {
-        super(material, amount, data);
-    }
-    public SkullBuilder setOwner(String owner) {
-        if(item.getType() != Material.SKULL_ITEM) throw new IllegalArgumentException("The Item Must Be A Skull to set the owner");
-        if(!(item.getItemMeta() instanceof SkullMeta)) throw new IllegalArgumentException("The Item Must Be A Skull To set the owner");
+
+    public SkullBuilder setOwner(String name) {
+
+        if(item.getType() != Material.SKULL_ITEM) throw new IllegalArgumentException("Item Type Must be SKULL_ITEM");
 
         SkullMeta meta = (SkullMeta) item.getItemMeta();
-        meta.setOwner(owner);
+        meta.setOwner(name);
         item.setItemMeta(meta);
 
         return this;
+    }
+    public ItemStack build() {
+        return item;
     }
 }

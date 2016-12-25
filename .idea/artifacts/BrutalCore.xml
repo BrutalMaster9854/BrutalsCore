@@ -4,6 +4,7 @@
     <root id="archive" name="BrutalCore.jar">
       <element id="module-output" name="BrutalCore" />
       <element id="file-copy" path="$PROJECT_DIR$/src/plugin.yml" />
+      <element id="file-copy" path="$PROJECT_DIR$/resources/config.yml" />
     </root>
   </artifact>
 </component>

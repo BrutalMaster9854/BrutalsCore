@@ -86,12 +86,18 @@ public class BrutalCore extends JavaPlugin {
         Arrays.stream(l).forEach(listener -> Bukkit.getPluginManager().registerEvents(listener, plugin));
     }
 
-    public void registerCommand(BrutalCommand executor) {
+    public void registerCommands(JavaPlugin plugin, BrutalCommand... executors) {
 
-        CommandData data = executor.getClass().getDeclaredAnnotation(CommandData.class);
+        for(BrutalCommand command : executors) {
 
-        getCommand(data.getName()).setExecutor(executor);
-        if(data.useTabExecutor()) getCommand(data.getName()).setTabCompleter(executor);
+            CommandData data = command.getClass().getDeclaredAnnotation(CommandData.class);
+            String name = data.getName();
+            boolean executor = data.useTabExecutor();
+
+
+            plugin.getCommand(name).setExecutor(command);
+            if(executor) plugin.getCommand(name).setTabCompleter(command);
+        }
     }
 
     public ServerConnector getServerConnector() {
